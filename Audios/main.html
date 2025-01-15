@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>Silent Night - The Soundlings</p>
+    <!-- * <audio> displays an audio file. 
+      * "controls" displays the controls for the audio.
+      * "autoplay" plays the audio after the page loads.
+      * "muted" mutes the audio.
+      * "loop" loops/restart the audio when it ends. -->
+    <audio controls autoplay muted loop>
+      <!-- * <source> specifies the media given.
+       * "type" sets format type of the file given. -->
+      <source
+        src="audios/Silent Night - The Soundlings.mp3"
+        type="audio/mpeg"
+      />
+      <source src="audios/Silent Night - The Soundlings.wav" type="audio/wav" />
+    </audio>
+    <p>El Mosco - Inaban</p>
+    <audio controls><source src="audios/El Mosco - Inaban.mp3" /></audio>
+    <p>I Know That I Need You - Bail Bonds</p>
+    <audio controls>
+      <source src="audios/I Know That I Need You - Bail Bonds.mp3" />
+    </audio>
+  </body>
+</html>
