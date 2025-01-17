@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buttons</title>
+  </head>
+  <body>
+    <a href="misc/page2.html">
+      <!-- * <button> can be applied with multiple functions on click. -->
+      <button
+        style="
+          font-size: 50px;
+          background-color: gray;
+          color: aliceblue;
+          border-radius: 25px;
+        "
+      >
+        Click me
+      </button>
+    </a>
+    <hr />
+
+    <!-- * <button> can also be used with JavaScript with the use of functions.
+        ! This is advanced. -->
+    <button
+      onclick="doSomething()"
+      style="
+        font-size: 50px;
+        background-color: gray;
+        color: aliceblue;
+        border-radius: 25px;
+      "
+    >
+      Click me
+    </button>
+    <p id="greeting">Hello</p>
+    <script>
+      function doSomething() {
+        document.getElementById("greeting").innerHTML = "Goodbye";
+      }
+    </script>
+  </body>
+</html>
