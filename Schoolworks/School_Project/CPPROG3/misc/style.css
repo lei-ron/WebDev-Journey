@@ -1,0 +1,424 @@
+/* ! Sections. */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  padding: 0 10px;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-image: url(assets/bgimage.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  touch-action: pan-y;
+}
+
+/* ! Title section. */
+.start {
+  position: absolute;
+  top: 56%;
+  left: 50%;
+}
+.title {
+  font-family: "Amatic SC", serif;
+  font-weight: 700;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  display: flex;
+  justify-content: center;
+  font-size: 100px;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+}
+.title h1 {
+  margin-inline: auto;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 1px solid;
+  animation: typing 1.5s linear forwards, blink 0.75s step-end infinite;
+}
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+.h1-hidden {
+  opacity: 0;
+}
+.h1-visible {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+/* ! Start button section. */
+#start-button {
+  font-size: 50px;
+  position: absolute;
+  display: inline-block;
+  width: 450px;
+  height: 200px;
+  text-align: center;
+  padding-top: 15px;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+  background: linear-gradient(0deg, #282828, #202020);
+  box-shadow: 0px 0px 0px 4px rgba(0, 0, 0, 0.75),
+    0px 5px 20px 10px rgba(0, 0, 0, 0.635);
+  overflow: hidden;
+  user-select: none;
+  opacity: 0;
+}
+#start-button::before {
+  content: "";
+  position: absolute;
+  top: 13px;
+  bottom: 33px;
+  right: 24px;
+  left: 24px;
+  background: linear-gradient(180deg, #232323, #4a4a4a);
+  border-radius: 15px;
+  border-bottom: 3.5px solid #0005;
+  border-left: 3px solid #0004;
+  border-right: 3px solid #0004;
+  box-shadow: 0px -10px 10px 2px rgba(255, 255, 255, 0.134),
+    0px 15px 30px rgba(0, 0, 0, 0.4);
+}
+#start-button:active {
+  display: block;
+  transform: translate(-50%, -50%) scale(0.95);
+  box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.75),
+    0px 5px 20px 10px rgba(0, 0, 0, 0.635);
+  background: linear-gradient(to top, #1c1c1c, #1c1c1c);
+  transition: transform 0.1s ease-in-out;
+}
+#sbtext {
+  position: relative;
+  color: white;
+  text-transform: uppercase;
+  font-family: "Quantico", serif;
+  padding-top: 8px;
+}
+
+/* ! Mode button section. */
+#mode-button1,
+#mode-button2,
+#mode-button3 {
+  font-size: 50px;
+  position: absolute;
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  text-align: center;
+  padding-top: 15px;
+  cursor: pointer;
+  transform: translate(-50%, -50%) scale(0.95);
+  border-radius: 15px;
+  background: linear-gradient(0deg, #282828, #202020);
+  box-shadow: 0px 0px 0px 4px rgba(0, 0, 0, 0.75),
+    0px 5px 20px 10px rgba(0, 0, 0, 0.635);
+  overflow: hidden;
+  user-select: none;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  display: none;
+  pointer-events: none;
+}
+#mode-button1 {
+  top: 57%;
+  left: 33%;
+}
+#mode-button2 {
+  top: 57%;
+  left: 50%;
+}
+#mode-button3 {
+  top: 57%;
+  left: 67%;
+}
+#mode-button1::before,
+#mode-button2::before,
+#mode-button3::before {
+  content: "";
+  position: absolute;
+  top: 13px;
+  bottom: 33px;
+  right: 24px;
+  left: 24px;
+  background: linear-gradient(180deg, #232323, #4a4a4a);
+  border-radius: 15px;
+  border-bottom: 3.5px solid #0005;
+  border-left: 3px solid #0004;
+  border-right: 3px solid #0004;
+  box-shadow: 0px -10px 10px 2px rgba(255, 255, 255, 0.134),
+    0px 15px 30px rgba(0, 0, 0, 0.4);
+}
+#mode-button1:active,
+#mode-button2:active,
+#mode-button3:active {
+  transform: translate(-50%, -50%) scale(0.9);
+  box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.75),
+    0px 5px 20px 10px rgba(0, 0, 0, 0.635);
+  background: linear-gradient(to top, #1c1c1c, #1c1c1c);
+  transition: transform 0.1s ease-in-out;
+}
+/* Includes start button. */
+#start-button:hover,
+#mode-button1:hover,
+#mode-button2:hover,
+#mode-button3:hover {
+  box-shadow: 0px 0px 0px 7px rgba(0, 0, 0, 0.75),
+    0px 5px 36px 10px rgba(0, 0, 0, 0.635);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+#mbtext1,
+#mbtext2,
+#mbtext3 {
+  font-family: "Quantico", serif;
+  position: relative;
+  color: white;
+  font-size: 35px;
+  padding-top: 8px;
+}
+
+/* hard to apply due to JS.
+#start-button:not(hover),
+#mode-button1:not(hover),
+#mode-button2:not(hover),
+#mode-button3:not(hover) {
+}*/
+
+/* ! Main game section. */
+/*.wrapper {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+}
+  .wrapper {
+  width: 700px;
+  padding: 35px;
+  background: #1e1e1e;
+  border-radius: 10px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+
+.wrapper .content-box {
+  padding: 13px 20px 0;
+  border-radius: 10px;
+  border: 4px solid #fbc02d;
+}}*/
+.wrapper {
+  display: none;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+}
+#paragraph {
+  color: #ffffff;
+}
+.result-details {
+  color: #fbc02d;
+}
+::selection {
+  color: #fff;
+  background: #007acc;
+}
+.wrapper .input-field {
+  opacity: 0;
+  z-index: -999;
+  position: absolute;
+}
+.content-box .typing-text {
+  overflow: hidden;
+  max-height: 256px;
+}
+.typing-text::-webkit-scrollbar {
+  width: 0;
+}
+.typing-text p {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word; /* Prevents breaking words randomly */
+  overflow-wrap: break-word; /* Ensures proper line wrapping */
+  font-size: 40px;
+  text-align: justify;
+  letter-spacing: 1px;
+  white-space: normal;
+  max-width: 100%;
+}
+.typing-text p span {
+  position: relative;
+}
+.typing-text p span.correct {
+  color: #d1d0c5;
+}
+.typing-text p span.incorrect {
+  color: #ca4754;
+  border-radius: 4px;
+}
+.typing-text p span.active {
+  color: #fbc02d; /* Highlight color for the active letter */
+  border-right: 2px solid #fbc02d;
+  position: relative;
+  animation: cursor-blink 0.75s step-end infinite;
+}
+@keyframes cursor-blink {
+  50% {
+    border-color: transparent;
+  }
+}
+.typing-text p span.active::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: #fbc02d;
+  animation: typing-blink 0.75s step-end infinite;
+}
+@keyframes typing-blink {
+  50% {
+    opacity: 0;
+  }
+}
+.typing-text p span.space.active::before {
+  left: 50%; /* Center the cursor for space */
+  transform: translateX(-50%);
+}
+.content-box .content {
+  margin-top: 17px;
+  display: flex;
+  padding: 12px 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 13px solid #fbc02d;
+}
+.content button {
+  outline: none;
+  border: none;
+  width: 105px;
+  color: #fbc02d;
+  padding: 8px 0;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 15px;
+  border: 3px solid #fbc02d;
+  background: none;
+  transition: transform 0.2s ease;
+}
+.content button:active {
+  transform: scale(0.89);
+}
+.content button:hover {
+  background: #ffffff;
+}
+.content .result-details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: calc(100% - 140px);
+  justify-content: space-between;
+}
+.result-details li {
+  display: flex;
+  height: 20px;
+  list-style: none;
+  position: relative;
+  align-items: center;
+}
+.result-details li:not(:first-child) {
+  padding-left: 22px;
+  border-left: 2px solid #bfbfbf;
+}
+.result-details li p {
+  font-size: 13px;
+}
+.result-details li span {
+  display: block;
+  font-size: 13px;
+  margin-left: 10px;
+}
+li span b {
+  font-weight: 500;
+}
+li:not(:first-child) span {
+  font-weight: 500;
+}
+@media (max-width: 745px) {
+  .wrapper {
+    padding: 20px;
+  }
+  .content-box .content {
+    padding: 20px 0;
+  }
+  .content-box .typing-text {
+    max-height: 100%;
+  }
+  .typing-text p {
+    font-size: 19px;
+    text-align: left;
+  }
+  .content button {
+    width: 100%;
+    font-size: 15px;
+    padding: 10px 0;
+    margin-top: 20px;
+  }
+  .content .result-details {
+    width: 100%;
+  }
+  .result-details li:not(:first-child) {
+    border-left: 0;
+    padding: 0;
+  }
+  .result-details li p,
+  .result-details li span {
+    font-size: 15px;
+  }
+}
+@media (max-width: 518px) {
+  .wrapper .content-box {
+    padding: 10px 15px 0;
+  }
+  .typing-text p {
+    font-size: 13px;
+  }
+  .result-details li {
+    margin-bottom: 10px;
+  }
+  .content button {
+    margin-top: 10px;
+  }
+}

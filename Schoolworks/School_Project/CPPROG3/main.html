@@ -1,0 +1,107 @@
+<!-- ! Sections. -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+      user-scalable="no"
+    />
+    <link rel="stylesheet" href="misc/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Funnel+Display:wght@300..800&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="misc/script.js" defer></script>
+    <title>CPPROG3 Group Project</title>
+  </head>
+  <body>
+    <!-- ! Main title and start button section. -->
+    <div class="title">
+      <h1>Typing Game</h1>
+    </div>
+
+    <div class="start">
+      <span
+        id="start-button"
+        onclick="fadeOutSB(); playKBsound(); showMB1(); showMB2(); showMB3();"
+      >
+        <p id="sbtext">Start</p>
+      </span>
+    </div>
+
+    <!-- ! Select mode title and mode buttons section. -->
+    <span
+      id="mode-button1"
+      onclick="showWrapper(); fadeOutMB('mode-button1'); playKBsound(); fadeOutModes();"
+      style="display: none"
+      ><p id="mbtext1">WORD</p></span
+    >
+    <span
+      id="mode-button2"
+      onclick="fadeOutMB('mode-button2'); playKBsound(); fadeOutModes();"
+      style="display: none"
+      ><p id="mbtext2">ALPH</p></span
+    >
+    <span
+      id="mode-button3"
+      onclick="fadeOutMB('mode-button2'); playKBsound(); fadeOutModes();"
+      style="display: none"
+      ><p id="mbtext3">NMBR</p></span
+    >
+
+    <!--
+    <div class="wrapper">
+      <input type="text" class="input-field" />
+
+      <div class="content">
+        <ul class="result-details">
+          <li class="time">
+            <p>Time Left:</p>
+            <span><b>60</b>s</span>
+          </li>
+          <li class="mistake">
+            <p>Mistakes:</p>
+            <span>0</span>
+          </li>
+          <li class="wpm">
+            <p>WPM:</p>
+            <span>0</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="typing-text">
+        <p id="paragraph"></p>
+
+        
+           </div>
+            <div class="content"></div>
+            <ul class="result-details">
+            <li >
+              
+            </li>
+            <li >
+              
+            </li>
+            
+            <li class="cpm">
+              <p>CPM:</p>
+              <span>0</span>
+            </li>
+          </ul>
+          <button>Try Again</button>
+            
+            
+      </div>
+    </div>
+-->
+
+    <!-- ! Audio section.-->
+    <audio id="audio" src="misc/assets/KBclick.wav"></audio>
+  </body>
+</html>
