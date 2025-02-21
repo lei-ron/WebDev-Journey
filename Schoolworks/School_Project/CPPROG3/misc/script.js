@@ -11,11 +11,11 @@ function fadeOutSB() {
   let box = document.getElementById("start-button");
   let title = titleDiv.querySelector("h1");
 
-  // * Before animation (no visibility).
+  // * Gives main title vanish animation.
   titleDiv.style.opacity = "0"; // "style" replicates css for JavaScript.
   titleDiv.style.transform = "translate(-50%, -50%) scale(0.9)";
 
-  //* Sets timer for said functions.
+  //* Sets timer to activate functions.
   setTimeout(() => {
     // Changes title after start button clicked.
     title.textContent = "Select Mode";
@@ -81,6 +81,7 @@ function showSB() {
 // ? Fades out mode buttons.
 function fadeOutMB(buttonId) {
   let button = document.getElementById(buttonId);
+
   button.style.pointerEvents = "none";
   button.style.opacity = "0";
   button.style.transition = "opacity 0.5s ease-in-out";
@@ -125,6 +126,18 @@ function fadeOutModes() {
     );
   });
 }
+
+function changeBackground() {
+  document.body.style.background =
+    "url('misc/assets/bgimg2.png') no-repeat center center fixed";
+  document.body.style.backgroundSize = "cover";
+}
+
+document.getElementById("mode-button1").addEventListener("click", () => {
+  changeBackground();
+  fadeOutModes();
+  playKBsound();
+});
 
 // ? Apply transitions for mode buttons upon appearing.
 function showMB1() {
@@ -211,71 +224,97 @@ document
   .forEach((button) => {
     button.addEventListener("click", () => {
       fadeOutModes();
-      play(); // Play the sound effect when you click a button.
+      playKBsound();
+      // Play the sound effect when you click a button.
     });
   });
 
-/*
-function showWrapper() {
-  let wrapper = document.querySelector(".wrapper");
-  wrapper.style.display = "block"; // Make it visible
+// ! Main game section.
+function showMG() {
+  let wrapper = document.querySelector(".main-game");
+  wrapper.style.opacity = "0";
+  wrapper.style.display = "block";
+  wrapper.style.pointerEvents = "none";
+
   setTimeout(() => {
-    wrapper.style.opacity = "1"; // Fade it in smoothly
-  }, 50); // Short delay to allow CSS transition
+    wrapper.style.transition = "opacity 0.8s ease-in-out";
+    wrapper.style.opacity = "1";
+
+    console.log("Typing game appeared!");
+  }, 500);
+
+  setTimeout(() => {
+    wrapper.style.pointerEvents = "auto";
+  }, 500);
+
+  resetGame(); // Ensure game resets and loads paragraph when shown
 }
 
-const paragraphs = [
-  "know her of what new all then did way for at now been very his the our she my just other be time could over with that as he who when take like make and me was from can it go an think look them first in not had have",
-  "but after this about most do other had to think would day than see out make from also now time have even very into the more my some are is be their there like work her they was just come it did any well new if take which back year",
-  "then go get more have make way its us what any his you their is up out or and it be which very want first look will they for see all over he but also people in only them well your know other our how she say these so by",
-  "had than so her as how on from think to did my time is do what make also look us want or just it you no up his take if day say well way very year use not they come most of that could go been she out into in",
-  "you see new my make come do all just him take even back if than they not is then were or now there how use about these of first up out but can have most had very get way who other been in our would its good well could a",
-  "he its from our are first a some these only when any go then with her very well them be we has the all people their do know not would just she could it one were new way back his by day say up if look so time give on",
-  "me then because do you an up see it her which to use more even well know first that had most their but think did there could can some other have come look only so is of not way his if good no get them was will he my now",
-  "can have first than what it over them with take who they give your do has no also us know an year two work in our most think so were how well been had on as me she will him was day then or we use any but want if",
-  "what do very to this the no it how new time were when use her but because their with my them would go did back work was and of just think into she that people he all good other in an know who a us look me had any there",
-  "their there this it or no how from for was on use has say work know after with him now other out who any the she most way be would well us is we you by even but up when her like if could of that because over they to",
-  "way be will it have some them to come who only the just know so when at use was would on most good as which time two a then into my also he you had out are first an could for now see over him she did your or get",
-  "the these him do me go she of also now this give we were more can or year not did make their people other look new at would about you what back for an well had have and than all want is they get some could if like know was",
-  "there just people more year could come use over was no make me go had up is when like his on know as has it want all work about not first will for day but other at are an us this give from than a even did see most to",
-  "year an also not at them will it for time give to did now look us you go any want about more had have so they on come with from is my because make than get his two has very only but some no most your which people all know",
-  "can the are by way think no his will do get it these then with say because take from use to know at when about any them our see day be more have very after been this as she which did other their make my its all you on want",
-];
+const paragraphs = {
+  10: ["quick brown fox jumps over the lazy dog try again hello world"],
+  20: [
+    "typing fast and accurately is a useful skill that improves productivity and reduces mistakes with practice it becomes second nature",
+  ],
+  40: [
+    "typing is an essential skill in the digital age improving speed and accuracy helps students and professionals work efficiently practice daily to develop muscle memory and improve performance over time using proper techniques reduces strain and increases productivity",
+  ],
+};
 
-const typingText = document.querySelector(".typing-text p");
-const inpField = document.querySelector(".wrapper .input-field");
-const tryAgainBtn = document.querySelector(".content button");
-const timeTag = document.querySelector(".time span b");
-const mistakeTag = document.querySelector(".mistake span");
+let currentLength = 20; // Default to 10 words
+
+function setParagraphLength(length) {
+  currentLength = length;
+  loadParagraph();
+  resetGame(); // Reset the game when paragraph length changes
+}
+
+const typingText = document.querySelector(".tpbox p");
+const inpField = document.querySelector(".main-game .tpinput");
+const tryAgainBtn = document.querySelector(".main-game button");
+const timeTag = document.querySelector(".timer span b");
+const mistakeTag = document.querySelector(".mistakes span");
 const wpmTag = document.querySelector(".wpm span");
-const cpmTag = document.querySelector(".cpm span");
 
+let typingTime = 0; // Tracks active typing time
+let typingActive = false; // Flag to check if typing is happening
 let timer;
-let maxTime = 60;
-let timeLeft = maxTime;
 let charIndex = (mistakes = isTyping = 0);
 
 function loadParagraph() {
-  const ranIndex = Math.floor(Math.random() * paragraphs.length);
+  const paragraphList = paragraphs[currentLength];
+  const randomIndex = Math.floor(Math.random() * paragraphList.length);
+  const selectedParagraph = paragraphList[randomIndex];
+
   typingText.innerHTML = "";
-  paragraphs[ranIndex].split("").forEach((char) => {
-    console.log(char);
+  selectedParagraph.split("").forEach((char) => {
     let span = `<span>${char}</span>`;
     typingText.innerHTML += span;
   });
+
   typingText.querySelectorAll("span")[0].classList.add("active");
-  document.addEventListener("keydown", () => inpField.focus());
-  typingText.addEventListener("click", () => inpField.focus());
+
+  // Reset input field and focus it
+  inpField.value = "";
+  inpField.focus(); // Ensure it’s focused
+}
+
+function startTimer() {
+  if (!typingActive) {
+    typingActive = true;
+    timer = setInterval(() => {
+      typingTime++; // Increase only when typing is active
+      document.getElementById("timeTag").innerText = typingTime;
+    }, 1000);
+  }
 }
 
 function initTyping() {
   let characters = typingText.querySelectorAll("span");
   let typedChar = inpField.value.split("")[charIndex];
-  if (charIndex < characters.length - 1 && timeLeft > 0) {
-    if (!isTyping) {
-      timer = setInterval(initTimer, 1000);
-      isTyping = true;
-    }
+
+  if (charIndex < characters.length) {
+    startTimer(); // Start the timer when the user begins typing
+
     if (typedChar == null) {
       if (charIndex > 0) {
         charIndex--;
@@ -293,49 +332,133 @@ function initTyping() {
       }
       charIndex++;
     }
+
     characters.forEach((span) => span.classList.remove("active"));
-    characters[charIndex].classList.add("active");
+    if (charIndex < characters.length) {
+      characters[charIndex].classList.add("active");
+    } else {
+      clearInterval(timer); // Stop counting time when done
+      typingActive = false;
+      showResults();
+    }
 
-    let wpm = Math.round(
-      ((charIndex - mistakes) / 5 / (maxTime - timeLeft)) * 60
-    );
-    wpm = wpm < 0 || !wpm || wpm === Infinity ? 0 : wpm;
-
-    wpmTag.innerText = wpm;
-    mistakeTag.innerText = mistakes;
-    cpmTag.innerText = charIndex - mistakes;
-  } else {
-    clearInterval(timer);
-    inpField.value = "";
+    document.getElementById("wpmTag").innerText =
+      Math.round(((charIndex - mistakes) / 5 / typingTime) * 60) || 0;
+    document.getElementById("mistakeTag").innerText = mistakes;
   }
 }
 
-function initTimer() {
-  if (timeLeft > 0) {
-    timeLeft--;
-    timeTag.innerText = timeLeft;
-    let wpm = Math.round(
-      ((charIndex - mistakes) / 5 / (maxTime - timeLeft)) * 60
-    );
-    wpmTag.innerText = wpm;
-  } else {
+let typingTimeout;
+
+inpField.addEventListener("input", () => {
+  clearTimeout(typingTimeout);
+  typingTimeout = setTimeout(() => {
     clearInterval(timer);
-  }
+    typingActive = false;
+  }, 2000); // Stops counting if user doesn't type for 2 sec
+});
+
+function showResults() {
+  document.querySelector(".tpdetails").style.display = "block";
+  document.querySelector(".tpdetails .wpm span").textContent = wpmTag.innerText;
+  document.querySelector(".tpdetails .mistakes span").textContent =
+    mistakeTag.innerText;
+
+  let crdtText = document.getElementById("crdt");
+  crdtText.style.display = "block";
 }
 
 function resetGame() {
-  loadParagraph();
+  loadParagraph(); // Load a new paragraph
   clearInterval(timer);
-  timeLeft = maxTime;
-  charIndex = mistakes = isTyping = 0;
+
+  typingTime = 0;
+  charIndex = mistakes = 0;
+  typingActive = false;
   inpField.value = "";
-  timeTag.innerText = timeLeft;
-  wpmTag.innerText = 0;
-  mistakeTag.innerText = 0;
-  cpmTag.innerText = 0;
+  inpField.focus(); // Ensure input field is focused
+
+  // Reset displayed stats
+  document.getElementById("timeTag").innerText = "0";
+  document.getElementById("wpmTag").innerText = "0";
+  document.getElementById("mistakeTag").innerText = "0";
+
+  // Hide the results box
+  document.querySelector(".tpdetails").style.display = "none";
 }
 
 loadParagraph();
 inpField.addEventListener("input", initTyping);
-tryAgainBtn.addEventListener("click", resetGame);
-*/
+
+function showPL1() {
+  let button = document.getElementById("PL-button1");
+
+  // * Applies transition styles.
+  button.style.display = "inline-block"; // Ensures it's visible.
+  button.style.transform = "translate(-50%, -50%) scale(0.86)"; // Starts small.
+  button.style.transition =
+    "transform 1s ease-in-out, opacity 0.8s ease-in-out";
+  button.style.opacity = "0"; // Starts invisible.
+  button.style.pointerEvents = "none"; // Disables click and hover for a while.
+
+  // * Delays and timings.
+  setTimeout(() => {
+    button.style.opacity = "1";
+  }, 600); // Slowly makes button appear.
+  setTimeout(() => {
+    button.style.transform = "translate(-50%, -50%) scale(.95)";
+  }, 800); // Slowly scale back to normal.
+  setTimeout(() => {
+    button.style.pointerEvents = "auto";
+  }, 2000); // Turns interaction on after delay. (Makes it clickable.)
+  setTimeout(() => {
+    button.style.transition = ""; // Removes transition.
+    button.style.transform = ""; // Resets transform.
+  }, 2000); // Time it resets.
+}
+function showPL2() {
+  let button = document.getElementById("PL-button2");
+  button.style.display = "inline-block";
+  button.style.transform = "translate(-50%, -50%) scale(0.86)";
+  button.style.transition =
+    "transform 1s ease-in-out, opacity 0.8s ease-in-out";
+  button.style.opacity = "0";
+  button.style.pointerEvents = "none";
+
+  setTimeout(() => {
+    button.style.opacity = "1";
+  }, 1100);
+  setTimeout(() => {
+    button.style.transform = "translate(-50%, -50%) scale(.95)"; // Scale back to normal
+  }, 800);
+  setTimeout(() => {
+    button.style.pointerEvents = "auto";
+  }, 2000);
+  setTimeout(() => {
+    button.style.transition = "";
+    button.style.transform = "";
+  }, 2000);
+}
+function showPL3() {
+  let button = document.getElementById("PL-button3");
+  button.style.display = "inline-block";
+  button.style.transform = "translate(-50%, -50%) scale(0.86)";
+  button.style.transition =
+    "transform 1s ease-in-out, opacity 0.8s ease-in-out";
+  button.style.opacity = "0";
+  button.style.pointerEvents = "none";
+
+  setTimeout(() => {
+    button.style.opacity = "1";
+  }, 1500);
+  setTimeout(() => {
+    button.style.transform = "translate(-50%, -50%) scale(.95)"; // Scale back to normal
+  }, 1000);
+  setTimeout(() => {
+    button.style.pointerEvents = "auto";
+  }, 2000);
+  setTimeout(() => {
+    button.style.transition = "";
+    button.style.transform = "";
+  }, 2000);
+}

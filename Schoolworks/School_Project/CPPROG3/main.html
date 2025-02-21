@@ -4,25 +4,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-      user-scalable="no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="misc/style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Funnel+Display:wght@300..800&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
     <script src="misc/script.js" defer></script>
-    <title>CPPROG3 Group Project</title>
+    <title>Simply Type</title>
   </head>
   <body>
     <!-- ! Main title and start button section. -->
     <div class="title">
-      <h1>Typing Game</h1>
+      <h1>Simply Type</h1>
     </div>
 
     <div class="start">
@@ -37,69 +27,63 @@
     <!-- ! Select mode title and mode buttons section. -->
     <span
       id="mode-button1"
-      onclick="showWrapper(); fadeOutMB('mode-button1'); playKBsound(); fadeOutModes();"
+      onclick="showMG(); fadeOutMB('mode-button1'); playKBsound(); fadeOutModes(); showPL1(); showPL2(); showPL3(); showPLbuttons();"
       style="display: none"
-      ><p id="mbtext1">WORD</p></span
+      ><p id="mbtext">WORD</p></span
     >
     <span
       id="mode-button2"
       onclick="fadeOutMB('mode-button2'); playKBsound(); fadeOutModes();"
       style="display: none"
-      ><p id="mbtext2">ALPH</p></span
+      ><p id="mbtext">ALPH</p></span
     >
     <span
       id="mode-button3"
       onclick="fadeOutMB('mode-button2'); playKBsound(); fadeOutModes();"
       style="display: none"
-      ><p id="mbtext3">NMBR</p></span
+      ><p id="mbtext">NMBR</p></span
     >
 
-    <!--
-    <div class="wrapper">
-      <input type="text" class="input-field" />
+    <!-- ! Paragraph length buttons section. -->
+    <div class="paragraph-length">
+      <span id="PL-button1" onclick="setParagraphLength(10); playKBsound();"
+        ><p id="pltext">10</p></span
+      >
+      <span id="PL-button2" onclick="setParagraphLength(20); playKBsound();"
+        ><p id="pltext">20</p></span
+      >
+      <span id="PL-button3" onclick="setParagraphLength(40); playKBsound();"
+        ><p id="pltext">40</p></span
+      >
+    </div>
 
-      <div class="content">
-        <ul class="result-details">
-          <li class="time">
-            <p>Time Left:</p>
-            <span><b>60</b>s</span>
-          </li>
-          <li class="mistake">
-            <p>Mistakes:</p>
-            <span>0</span>
-          </li>
-          <li class="wpm">
-            <p>WPM:</p>
-            <span>0</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="typing-text">
-        <p id="paragraph"></p>
-
-        
-           </div>
-            <div class="content"></div>
-            <ul class="result-details">
-            <li >
-              
+    <!-- ! Main game section. -->
+    <div class="main-game">
+      <input type="text" class="tpinput" />
+      <div class="contents">
+        <div class="tpbox">
+          <p id="paragraph"></p>
+        </div>
+        <div class="tpdetails" style="display: none">
+          <ul class="tpresults">
+            <li class="timer">
+              <p>
+                Time Spent: <span id="timeTag" style="color: #fbc02d">0</span>s
+              </p>
             </li>
-            <li >
-              
+            <li class="wpm">
+              <p>WPM: <span id="wpmTag" style="color: #fbc02d">0</span></p>
             </li>
-            
-            <li class="cpm">
-              <p>CPM:</p>
-              <span>0</span>
+            <li class="mistakes">
+              <p>
+                Mistakes: <span id="mistakeTag" style="color: #fbc02d">0</span>
+              </p>
             </li>
           </ul>
-          <button>Try Again</button>
-            
-            
+        </div>
       </div>
     </div>
--->
+    <p id="crdt" style="display: none">Created by:</p>
 
     <!-- ! Audio section.-->
     <audio id="audio" src="misc/assets/KBclick.wav"></audio>
