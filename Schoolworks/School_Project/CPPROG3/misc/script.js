@@ -251,12 +251,36 @@ function showMG() {
 }
 
 const paragraphs = {
-  10: ["quick brown fox jumps over the lazy dog try again hello world"],
+  10: [
+    "the sun set over the mountains casting a golden glow",
+    "she smiled brightly knowing today was going to be perfect",
+    "the storm clouds gathered darkening the sky with impending rain",
+    "a bird flew past its wings cutting through the cold wind",
+    "the aroma of fresh coffee filled the air waking everyone",
+    "they walked hand in hand enjoying the peaceful evening walk",
+    "the music played softly creating a calm relaxing atmosphere",
+    "the dog barked loudly chasing after the bouncing ball",
+    "he stared at the horizon lost in thoughts of the past",
+    "the books on the shelf were arranged in perfect order",
+  ],
   20: [
-    "typing fast and accurately is a useful skill that improves productivity and reduces mistakes with practice it becomes second nature",
+    "the car screeched to a halt narrowly avoiding the pedestrian who suddenly stepped out from behind the parked truck",
+    "she ran through the crowded streets her heart racing as she desperately searched for the lost wallet",
+    "the wind howled through the trees shaking the branches and causing the leaves to scatter in all directions",
+    "he carefully placed the delicate vase on the shelf making sure it wouldn't fall or get damaged in any way",
+    "as the clock struck midnight the party came to an end leaving everyone to make their way home",
+    "the sun rose over the ocean painting the sky with shades of orange pink and soft purple hues",
+    "they walked down the narrow alley trying to avoid the puddles and debris scattered across the cobblestone path",
+    "the children laughed and played their voices echoing through the park as they ran after the ice cream truck",
+    "she opened the letter with trembling hands unsure of what the contents might reveal about her future",
+    "the professor explained the complex theory in simple terms making sure every student understood the fundamental concepts clearly",
   ],
   40: [
-    "typing is an essential skill in the digital age improving speed and accuracy helps students and professionals work efficiently practice daily to develop muscle memory and improve performance over time using proper techniques reduces strain and increases productivity",
+    "the train rumbled along the tracks its powerful engine pulling several cars behind it as passengers gazed out the windows watching the landscape pass by in a blur of green fields distant hills and the occasional small town",
+    "they sat by the campfire roasting marshmallows and telling stories under a sky full of stars the sound of crackling wood filling the air as the warmth of the fire spread and the night grew colder",
+    "as the clock ticked closer to midnight they exchanged nervous glances waiting for the moment when everything would change unsure of the consequences but certain that what was about to happen would shape their futures forever",
+    "the city was alive with activity bustling with people rushing to work street vendors calling out their wares and the hum of traffic in the background while the tall buildings cast long shadows across the busy streets",
+    "he looked at the painting mesmerized by the intricate details and vivid colors each brushstroke telling a story of its own as if the artist had poured their soul into the work capturing a moment in time that would never fade",
   ],
 };
 
@@ -359,13 +383,58 @@ inpField.addEventListener("input", () => {
 });
 
 function showResults() {
+  // Show the result section
   document.querySelector(".tpdetails").style.display = "block";
   document.querySelector(".tpdetails .wpm span").textContent = wpmTag.innerText;
   document.querySelector(".tpdetails .mistakes span").textContent =
     mistakeTag.innerText;
 
-  let crdtText = document.getElementById("crdt");
-  crdtText.style.display = "block";
+  let crdtTexts = [
+    document.getElementById("crdt1"),
+    document.getElementById("crdt2"),
+    document.getElementById("crdt3"),
+    document.getElementById("crdt4"),
+    document.getElementById("crdt5"),
+    document.getElementById("crdt6"),
+    document.getElementById("crdt7"),
+    document.getElementById("crdt8"),
+  ];
+
+  let delayBetweenNames = 0; // Delay before next name starts (0.5s)
+  let typingSpeed = 50; // Speed per letter in milliseconds
+
+  function typeCredit(index) {
+    if (index < crdtTexts.length) {
+      let element = crdtTexts[index];
+      if (element) {
+        element.style.display = "block"; // Make element visible
+        let text = element.textContent.trim(); // Get the original text
+        element.textContent = ""; // Clear the text for typing effect
+
+        let i = 0;
+        function typeChar() {
+          if (i <= text.length) {
+            element.innerHTML =
+              text.substring(0, i) + `<span class="cursor">|</span>`; // Add cursor
+            i++;
+            setTimeout(typeChar, typingSpeed); // Type next character
+          } else {
+            element.innerHTML = text; // Remove cursor after typing
+            setTimeout(() => typeCredit(index + 1), delayBetweenNames); // Next name
+          }
+        }
+
+        typeChar(); // Start typing animation
+      }
+    }
+  }
+
+  // Ensure credits container is visible before animation starts
+  let creditsContainer = document.getElementById("credits-container");
+  if (creditsContainer) creditsContainer.style.display = "block";
+
+  // Start typing animation 1 second after results appear
+  setTimeout(() => typeCredit(0), 500);
 }
 
 function resetGame() {
@@ -385,6 +454,16 @@ function resetGame() {
 
   // Hide the results box
   document.querySelector(".tpdetails").style.display = "none";
+
+  // Hide the credits container
+  document.getElementById("credits-container").style.display = "none";
+
+  // Hide individual credits
+  let crdtTexts = document.querySelectorAll("#credits-container p");
+  crdtTexts.forEach((el) => {
+    el.style.display = "none";
+    el.innerHTML = el.dataset.text || el.innerText; // Reset text
+  });
 }
 
 loadParagraph();
