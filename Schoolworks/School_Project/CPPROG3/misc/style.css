@@ -1,5 +1,5 @@
 /* ! Sections. */
-@import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+/*@import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap");*/
 * {
   margin: 0;
   padding: 0;
@@ -12,7 +12,7 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: url("assets/bgimage4.png") no-repeat center center fixed;
+  background: url("assets/bgimg1.png") no-repeat center center fixed;
   background-size: cover;
   transition: background-image 1s ease-in-out, opacity 1s ease-in-out;
   touch-action: pan-y;
@@ -27,20 +27,15 @@ body {
 }
 
 /* ! Title section. */
-.start {
-  position: absolute;
-  top: 56%;
-  left: 50%;
-}
 .title {
-  font-family: "Amatic SC", serif;
+  font-family: "Comic Sans", cursive;
+  font-size: 70px;
   font-weight: 700;
   transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
   display: flex;
   justify-content: center;
-  font-size: 100px;
   position: absolute;
-  top: 28%;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -75,7 +70,40 @@ body {
   transform: translate(-50%, -50%);
 }
 
+/* ! Links and settings section. */
+#github,
+#facebook,
+#offsound,
+#settings {
+  position: absolute;
+  display: inline-block;
+  transform: translate(-50%, -50%);
+  width: 65px;
+  transition: opacity 0.5s ease-out;
+}
+#github {
+  top: 85.4%;
+  left: 22.7%;
+}
+#facebook {
+  top: 85.4%;
+  left: 31.8%;
+}
+#offsound {
+  top: 85.4%;
+  left: 68.3%;
+}
+#settings {
+  top: 85.4%;
+  left: 77.4%;
+}
+
 /* ! Start button section. */
+.start {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+}
 #start-button {
   font-size: 50px;
   position: absolute;
@@ -150,15 +178,15 @@ body {
   pointer-events: none;
 }
 #mode-button1 {
-  top: 57%;
+  top: 55%;
   left: 35%;
 }
 #mode-button2 {
-  top: 57%;
+  top: 55%;
   left: 50%;
 }
 #mode-button3 {
-  top: 57%;
+  top: 55%;
   left: 65%;
 }
 #mode-button1::before,
@@ -240,15 +268,14 @@ body {
   padding: 13px 20px 0;
 }
 .contents .tpbox {
-  overflow: hidden;
   max-height: 50%;
-  max-width: 40%;
+  max-width: 50%;
 }
 .tpbox ::-webkit-scrollbar {
   width: 0;
 }
 .tpbox p {
-  font-size: 38px;
+  font-size: 45px;
   text-align: justify;
   display: block;
   word-wrap: break-word;
@@ -258,7 +285,7 @@ body {
   position: relative;
 }
 .tpbox p span.correct {
-  color: rgb(0, 0, 0);
+  color: #545454;
 }
 .tpbox p span.incorrect {
   color: red;
@@ -266,7 +293,7 @@ body {
 }
 .tpbox p span.active {
   color: #ffffff;
-  border-right: 3px solid #ff0000;
+  border-left: 3px solid #ff0000;
   position: relative;
   animation: cursor-blink 0.75s step-end infinite;
 }
@@ -301,68 +328,7 @@ body {
   box-shadow: 0px 0px 15px 3px rgb(0, 0, 0);
 }
 
-.tpdetails .tpresults {
-  gap: 15px;
-}
-.tpresults li {
-  font-size: 80px;
-  list-style: none;
-  margin-bottom: 15px;
-  font-family: "Amatic SC", serif;
-}
-.tpresults li span {
-  font-weight: bold;
-}
-li span b {
-  font-weight: normal;
-}
-@media (max-width: 745px) {
-  .main-game {
-    padding: 20px;
-  }
-  .contents .tpdetails {
-    padding: 20px 0;
-  }
-  .contents .tpbox {
-    max-height: 100%;
-  }
-  .tpbox p {
-    font-size: 19px;
-    text-align: left;
-  }
-  .tpdetails button {
-    width: 100%;
-    font-size: 15px;
-    padding: 10px 0;
-    margin-top: 20px;
-  }
-  .tpdetails .tpresults {
-    width: 100%;
-  }
-  .result-details li:not(:first-child) {
-    border-left: 0;
-    padding: 0;
-  }
-  .result-details li p,
-  .result-details li span {
-    font-size: 15px;
-  }
-}
-@media (max-width: 518px) {
-  .main-game .contents {
-    padding: 10px 15px 0;
-  }
-  .tpbox p {
-    font-size: 13px;
-  }
-  .tpresults li {
-    margin-bottom: 10px;
-  }
-  .tpdetails button {
-    margin-top: 10px;
-  }
-}
-
+/* ! Paragraph length buttons section. */
 #PL-button1,
 #PL-button2,
 #PL-button3 {
@@ -424,7 +390,6 @@ li span b {
   background: linear-gradient(to top, #1c1c1c, #1c1c1c);
   transition: transform 0.1s ease-in-out;
 }
-/* Includes start button. */
 #PL-button1:hover,
 #PL-button2:hover,
 #PL-button3:hover {
@@ -439,14 +404,77 @@ li span b {
   font-size: 45px;
   padding-top: 8px;
 }
-#crdt1,
+
+/* ! Result form section. */
+.tpdetails .tpresults {
+  gap: 15px;
+}
+.tpresults li {
+  font-size: 60px;
+  list-style: none;
+  margin-bottom: 15px;
+  font-family: "comic sans", cursive;
+}
+.tpresults li span {
+  font-weight: bold;
+}
+li span b {
+  font-weight: normal;
+}
+@media (max-width: 745px) {
+  .main-game {
+    padding: 20px;
+  }
+  .contents .tpdetails {
+    padding: 20px 0;
+  }
+  .contents .tpbox {
+    max-height: 100%;
+  }
+  .tpbox p {
+    font-size: 19px;
+    text-align: left;
+  }
+  .tpdetails button {
+    width: 100%;
+    font-size: 15px;
+    padding: 10px 0;
+    margin-top: 20px;
+  }
+  .tpdetails .tpresults {
+    width: 100%;
+  }
+  .result-details li:not(:first-child) {
+    border-left: 0;
+    padding: 0;
+  }
+  .result-details li p,
+  .result-details li span {
+    font-size: 15px;
+  }
+}
+@media (max-width: 518px) {
+  .main-game .contents {
+    padding: 10px 15px 0;
+  }
+  .tpbox p {
+    font-size: 13px;
+  }
+  .tpresults li {
+    margin-bottom: 10px;
+  }
+  .tpdetails button {
+    margin-top: 10px;
+  }
+}
+
+/* ! Credits section. */
 #crdt2,
 #crdt3,
 #crdt4,
 #crdt5,
 #crdt6,
-#crdt7,
-#crdt8 {
+#crdt7 {
   font-size: 40px;
   display: none; /* Initially hidden */
   position: absolute;
@@ -455,45 +483,49 @@ li span b {
   background: #212121; /* Optional: adds some background color */
   border-radius: 8px;
   box-shadow: 0px 0px 15px 3px rgb(0, 0, 0);
-  padding: 15px;
-}
-#crdt2,
-#crdt3,
-#crdt4,
-#crdt5,
-#crdt6,
-#crdt7,
-#crdt8 {
+  padding: 14px;
+  transform: translate(-50%, -50%);
 }
 #crdt1 {
-  top: 15%;
-  left: 10%;
+  font-size: 40px;
+  display: none; /* Initially hidden */
+  position: absolute;
+  color: #ffffff;
+  border: 4px solid #000000;
+  background: #212121; /* Optional: adds some background color */
+  border-radius: 8px;
+  padding: 15px;
+  transform: translate(-50%, -50%);
+}
+#crdt1 {
+  top: 12%;
+  left: 50%;
   text-decoration-line: underline;
   font-weight: bold;
 }
 #crdt2 {
-  top: 35%;
-  left: 10%;
+  top: 25%;
+  left: 20%;
 }
 #crdt3 {
-  top: 55%;
-  left: 10%;
+  top: 45%;
+  left: 20%;
 }
 #crdt4 {
-  top: 75%;
-  left: 10%;
+  top: 65%;
+  left: 20%;
 }
 #crdt5 {
-  top: 15%;
-  left: 73%;
+  top: 25%;
+  left: 80%;
 }
 #crdt6 {
-  top: 35%;
-  left: 73%;
+  top: 45%;
+  left: 80%;
 }
 #crdt7 {
-  top: 55%;
-  left: 73%;
+  top: 65%;
+  left: 80%;
 }
 #crdt8 {
   top: 75%;
@@ -503,7 +535,6 @@ li span b {
   display: inline-block;
   animation: crdtblink 0.75s infinite;
 }
-
 @keyframes crdtblink {
   0% {
     opacity: 1;

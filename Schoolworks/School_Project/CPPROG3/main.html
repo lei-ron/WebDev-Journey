@@ -9,6 +9,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1"
     />
     <link rel="stylesheet" href="misc/style.css" />
+    <link rel="icon" type="image/jpg" href="misc/assets/favicon.jpg" />
     <script src="misc/script.js" defer></script>
     <title>Simply Type</title>
   </head>
@@ -17,48 +18,49 @@
     <div class="title">
       <h1>Simply Type</h1>
     </div>
-
     <div class="start">
       <span
         id="start-button"
-        onclick="fadeOutSB(); playKBsound(); showMB1(); showMB2(); showMB3();"
+        onclick="fadeOutSB(); showMB1(); showMB2(); showMB3();"
       >
         <p id="sbtext">Start</p>
       </span>
     </div>
 
+    <!-- ! Links and settings section. -->
+    <div class="linksetting">
+      <a href="https://github.com/cozekero" target="_blank"
+        ><img id="github" src="misc/assets/github.svg" alt=""
+      /></a>
+      <a href="https://facebook.com/cozekero" target="_blank"
+        ><img id="facebook" src="misc/assets/facebook.svg" alt=""
+      /></a>
+      <a href=""><img id="offsound" src="misc/assets/offsound.svg" alt="" /></a>
+      <a href=""><img id="settings" src="misc/assets/settings.svg" alt="" /></a>
+    </div>
+
+    <!-- ! Audio section.-->
+    <audio id="audio" src="misc/assets/KBclick.wav"></audio>
+
     <!-- ! Select mode title and mode buttons section. -->
     <span
       id="mode-button1"
-      onclick="showMG(); fadeOutMB('mode-button1'); playKBsound(); fadeOutModes(); showPL1(); showPL2(); showPL3(); showPLbuttons();"
+      onclick="showMG(); fadeOutMB('mode-button1'); fadeOutModes(); showPL1(); showPL2(); showPL3(); showPLbuttons(); fadeOutLinkImages();"
       style="display: none"
       ><p id="mbtext">WORD</p></span
     >
     <span
       id="mode-button2"
-      onclick="fadeOutMB('mode-button2'); playKBsound(); fadeOutModes();"
+      onclick="fadeOutMB('mode-button2'); fadeOutModes();"
       style="display: none"
       ><p id="mbtext">ALPH</p></span
     >
     <span
       id="mode-button3"
-      onclick="fadeOutMB('mode-button2'); playKBsound(); fadeOutModes();"
+      onclick="fadeOutMB('mode-button2'); fadeOutModes();"
       style="display: none"
       ><p id="mbtext">NMBR</p></span
     >
-
-    <!-- ! Paragraph length buttons section. -->
-    <div class="paragraph-length">
-      <span id="PL-button1" onclick="setParagraphLength(10); playKBsound();"
-        ><p id="pltext">10</p></span
-      >
-      <span id="PL-button2" onclick="setParagraphLength(20); playKBsound();"
-        ><p id="pltext">20</p></span
-      >
-      <span id="PL-button3" onclick="setParagraphLength(40); playKBsound();"
-        ><p id="pltext">40</p></span
-      >
-    </div>
 
     <!-- ! Main game section. -->
     <div class="main-game">
@@ -86,20 +88,29 @@
         </div>
       </div>
     </div>
+
+    <!-- ! Paragraph length buttons section. -->
+    <div class="paragraph-length">
+      <span id="PL-button1" onclick="setParagraphLength(10);"
+        ><p id="pltext">10</p></span
+      >
+      <span id="PL-button2" onclick="setParagraphLength(20);"
+        ><p id="pltext">20</p></span
+      >
+      <span id="PL-button3" onclick="setParagraphLength(40);"
+        ><p id="pltext">40</p></span
+      >
+    </div>
+
+    <!-- ! Credits section. -->
     <div id="credits-container" style="display: none">
-      <p id="crdt1" style="display: none" data-text="CPPROG3 GROUP">
-        CPPROG3 GROUP
-      </p>
+      <p id="crdt1" style="display: none" data-text="GROUP MEMBERS"></p>
       <p id="crdt2" style="display: none">Noriel Felipe Jr.</p>
       <p id="crdt3" style="display: none">Kreah Jumanoy</p>
       <p id="crdt4" style="display: none">Mich Placencia</p>
-      <p id="crdt5" style="display: none">Tristhan Rodimo</p>
-      <p id="crdt6" style="display: none">Mark Ahron Yandog</p>
-      <p id="crdt7" style="display: none">Adonis Manabeng</p>
-      <p id="crdt8" style="display: none">Andrei Jason Canoza</p>
+      <p id="crdt5" style="display: none">Mark Ahron Yandog</p>
+      <p id="crdt6" style="display: none">Adonis Manabeng</p>
+      <p id="crdt7" style="display: none">Andrei Jason Canoza</p>
     </div>
-
-    <!-- ! Audio section.-->
-    <audio id="audio" src="misc/assets/KBclick.wav"></audio>
   </body>
 </html>

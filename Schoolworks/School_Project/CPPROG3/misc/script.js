@@ -1,5 +1,7 @@
+// TODO Comments are made for the reporters of the project I made.
+
 // ! Sections.
-// ? Explains functions and goals to apply.
+// ? Explains functions and purposes.
 // * Explains functionality of a set.
 // Explains functionality of a line.
 
@@ -7,41 +9,41 @@
 // ? Fade out start button and replace title after clicking start button.
 function fadeOutSB() {
   //* This set/section selects elements or their given name such as class and id.
-  let titleDiv = document.querySelector(".title");
-  let box = document.getElementById("start-button");
-  let title = titleDiv.querySelector("h1");
+  let titleDiv = document.querySelector(".title"); // This line selects the title's div class.
+  let box = document.getElementById("start-button"); // Selects start button's ID.
+  let title = titleDiv.querySelector("h1"); // Selects h1 element from title.
 
   // * Gives main title vanish animation.
-  titleDiv.style.opacity = "0"; // "style" replicates css for JavaScript.
-  titleDiv.style.transform = "translate(-50%, -50%) scale(0.9)";
+  //* Uses CSS properties in JavaScript.
+  titleDiv.style.opacity = "0"; // Starts off invisible.
+  titleDiv.style.transform = "translate(-50%, -50%) scale(0.9)"; // Starts small (90% size).
 
   //* Sets timer to activate functions.
   setTimeout(() => {
-    // Changes title after start button clicked.
-    title.textContent = "Select Mode";
+    title.textContent = "Select Mode"; // Changes title to Select mode after start button clicked.
 
     // * Resets animation style of title and re-apply for "Select Mode" title.
     title.style.animation = "none"; //  Resets animation from main title.
-    void title.offsetWidth; // Force reflow to restart animation.
+    void title.offsetWidth; // Forces reflow to restart animation.
     title.style.animation =
-      "typing 1.5s linear forwards, blink 0.75s step-end infinite";
+      "typing 1.5s linear forwards, blink 0.75s step-end infinite"; // Re-applies typing effect animation.
 
-    // * This part makes new title re-appear.
-    titleDiv.style.opacity = "1";
-    titleDiv.style.transform = "translate(-50%, -50%) scale(1)";
+    // * Makes new title (Select Mode) re-appear.
+    titleDiv.style.opacity = "1"; // Makes it visible (100% opacity).
+    titleDiv.style.transform = "translate(-50%, -50%) scale(1)"; // Turns into full size.
   }, 500); // Sets delay for select mode title appearing.
 
   // * Fade out start button.
-  box.style.pointerEvents = "none";
-  box.style.opacity = "0";
-  box.style.transition = "opacity 0.5s ease-in-out";
+  box.style.pointerEvents = "none"; // Disables clicking on the button and hovering effect.
+  box.style.opacity = "0"; // Starts off invisible.
+  box.style.transition = "opacity 0.5s ease-in-out"; // Sets timed transition.
 
   // * Removes start button after fading out.
   box.addEventListener(
     "transitionend",
     () => {
-      box.style.display = "none";
-      setTimeout(showNextButton, 500); // Show next button after delay.
+      box.style.display = "none"; // Removes start button's existence.
+      setTimeout(showNextButton, 500); // Shows next button after delay.
     },
     { once: true } // Makes it only function once.
   );
@@ -50,10 +52,12 @@ function fadeOutSB() {
 // ? Apply transitions for start button upon page load.
 window.onload = function () {
   showSB();
-}; // Runs when the page loads.
+}; // Runs transition effect when the page loads.
 
 function showSB() {
-  let button = document.getElementById("start-button");
+  let button = document.getElementById("start-button"); // Selects start button's ID.
+
+  // * Applies CSS properties.
   button.style.opacity = "0"; // Starts invisible.
   button.style.pointerEvents = "none"; // Disables clicking and hovering for a while.
   button.style.transform = "translate(-50%, -50%) scale(0.86)"; // Starts small.
@@ -62,94 +66,54 @@ function showSB() {
   setTimeout(() => {
     button.style.display = "inline-block"; // Makes sure it's visible.
     button.style.transition =
-      "transform 1s ease-in-out, opacity 0.8s ease-in-out";
+      "transform 1s ease-in-out, opacity 0.8s ease-in-out"; // Applies timed transition effect.
     button.style.opacity = "1";
-  }, 500); // Makes it visible.
+  }, 500); // Makes it visible in 5 milliseconds.
   setTimeout(() => {
     button.style.transform = "translate(-50%, -50%) scale(1)";
-  }, 800); // Slowly scale back to normal.
+  }, 800); // Slowly scales it back to normal.
   setTimeout(() => {
     button.style.pointerEvents = "auto";
   }, 1800); // Enables clicking and hovering.
   setTimeout(() => {
     button.style.transition = "";
     button.style.transform = "";
-  }, 1800); // Time it resets.
+  }, 1800); // Time it resets transitions/animations.
 }
+
+// ? Adds keyboard clicking sound when buttons are clicked.
+function playKBsound() {
+  var audio = document.getElementById("audio"); // Selects audio's ID.
+  audio.currentTime = 0; // Reset's playback from the beginning.
+  audio.play();
+}
+
+// * Selects multiple ID's of buttons.
+document
+  .querySelectorAll(
+    "#start-button, #mode-button1, #mode-button2, #mode-button3, #PL-button1, #PL-button2, #PL-button3"
+  )
+
+  // * Sets where it functions.
+  .forEach((button) => {
+    // Sets clicking the activation of the function.
+    button.addEventListener("click", () => {
+      playKBsound(); // Play the sound effect when you click a button.
+    });
+  });
 
 // ! Select mode title and mode button section.
-// ? Fades out mode buttons.
-function fadeOutMB(buttonId) {
-  let button = document.getElementById(buttonId);
-
-  button.style.pointerEvents = "none";
-  button.style.opacity = "0";
-  button.style.transition = "opacity 0.5s ease-in-out";
-
-  // * Removes mode buttons after fading out.
-  button.addEventListener(
-    "transitionend",
-    () => {
-      button.style.display = "none";
-    },
-    { once: true }
-  );
-}
-
-// ? Removes title mode and mode buttons.
-function fadeOutModes() {
-  let titleDiv = document.querySelector(".title");
-  let title = titleDiv.querySelector("h1");
-  let buttons = document.querySelectorAll(
-    "#mode-button1, #mode-button2, #mode-button3"
-  );
-
-  //* Fade out select mode title.
-  titleDiv.style.opacity = "0";
-  titleDiv.style.transform = "translate(-50%, -50%) scale(0.9)";
-  titleDiv.style.transition =
-    "opacity 0.5s ease-in-out, transform 0.5s ease-in-out";
-
-  // * Fade out all mode buttons.
-  buttons.forEach((button) => {
-    button.style.pointerEvents = "none";
-    button.style.opacity = "0";
-    button.style.transition = "opacity 0.5s ease-in-out";
-
-    // * Removes mode buttons and select mode title after fade-out.
-    button.addEventListener(
-      "transitionend",
-      () => {
-        button.style.display = "none";
-      },
-      { once: true }
-    );
-  });
-}
-
-function changeBackground() {
-  document.body.style.background =
-    "url('misc/assets/bgimg2.png') no-repeat center center fixed";
-  document.body.style.backgroundSize = "cover";
-}
-
-document.getElementById("mode-button1").addEventListener("click", () => {
-  changeBackground();
-  fadeOutModes();
-  playKBsound();
-});
-
 // ? Apply transitions for mode buttons upon appearing.
 function showMB1() {
-  let button = document.getElementById("mode-button1");
+  let button = document.getElementById("mode-button1"); // Selects mode button's ID.
 
-  // * Applies transition styles.
+  // * Applies transition animation.
   button.style.display = "inline-block"; // Ensures it's visible.
   button.style.transform = "translate(-50%, -50%) scale(0.86)"; // Starts small.
   button.style.transition =
-    "transform 1s ease-in-out, opacity 0.8s ease-in-out";
+    "transform 1s ease-in-out, opacity 0.8s ease-in-out"; // Sets timed animation.
   button.style.opacity = "0"; // Starts invisible.
-  button.style.pointerEvents = "none"; // Disables click and hover for a while.
+  button.style.pointerEvents = "none"; // Disables clicking and hovering animation.
 
   // * Delays and timings.
   setTimeout(() => {
@@ -166,6 +130,8 @@ function showMB1() {
     button.style.transform = ""; // Resets transform.
   }, 2000); // Time it resets.
 }
+
+// ? All comments also applies to showMB2 and showMB3.
 function showMB2() {
   let button = document.getElementById("mode-button2");
   button.style.display = "inline-block";
@@ -179,7 +145,7 @@ function showMB2() {
     button.style.opacity = "1";
   }, 1100);
   setTimeout(() => {
-    button.style.transform = "translate(-50%, -50%) scale(.95)"; // Scale back to normal
+    button.style.transform = "translate(-50%, -50%) scale(.95)";
   }, 800);
   setTimeout(() => {
     button.style.pointerEvents = "auto";
@@ -202,7 +168,7 @@ function showMB3() {
     button.style.opacity = "1";
   }, 1500);
   setTimeout(() => {
-    button.style.transform = "translate(-50%, -50%) scale(.95)"; // Scale back to normal
+    button.style.transform = "translate(-50%, -50%) scale(.95)";
   }, 1000);
   setTimeout(() => {
     button.style.pointerEvents = "auto";
@@ -213,23 +179,92 @@ function showMB3() {
   }, 2000);
 }
 
-// ? Adds keyboard clicking sound when buttons are clicked.
-function playKBsound() {
-  var audio = document.getElementById("audio");
-  audio.currentTime = 0;
-  audio.play();
-}
-document
-  .querySelectorAll("#mode-button1, #mode-button2, #mode-button3")
-  .forEach((button) => {
-    button.addEventListener("click", () => {
-      fadeOutModes();
-      playKBsound();
-      // Play the sound effect when you click a button.
-    });
+// ? Removes title mode and mode buttons.
+function fadeOutModes() {
+  let titleDiv = document.querySelector(".title"); // Selects title's div class.
+  let title = titleDiv.querySelector("h1"); // Selects H1 element.
+  let buttons = document.querySelectorAll(
+    "#mode-button1, #mode-button2, #mode-button3"
+  ); // Selects multiple mode buttons.
+
+  //* Fade out select mode title.
+  titleDiv.style.opacity = "0"; // Starts invisible.
+  titleDiv.style.transform = "translate(-50%, -50%) scale(0.9)"; // Starts smaller (90% size).
+  titleDiv.style.transition =
+    "opacity 0.5s ease-in-out, transform 0.5s ease-in-out"; // Sets timed animation.
+
+  // * Fade out all mode buttons.
+  buttons.forEach((button) => {
+    button.style.pointerEvents = "none"; // Disables clicking and hovering animation.
+    button.style.opacity = "0"; // Starts invisible.
+    button.style.transition = "opacity 0.5s ease-in-out"; // Sets timed animation.
+
+    // * Removes select mode title after fade-out.
+    button.addEventListener(
+      "transitionend",
+      () => {
+        button.style.display = "none"; // Removes select mode title elements.
+      },
+      { once: true } // Sets it to function only once.
+    );
   });
+}
+
+// ? Fades out mode buttons, links and settings.
+function fadeOutMB(buttonId) {
+  let button = document.getElementById(buttonId); // Selects mode button's ID.
+
+  button.style.pointerEvents = "none"; // Disables clicking and hovering animation.
+  button.style.opacity = "0"; // Removes visibility
+  button.style.transition = "opacity 0.5s ease-in-out"; // Sets timed animation.
+
+  // * Removes mode buttons after fading out.
+  button.addEventListener(
+    "transitionend",
+    () => {
+      button.style.display = "none";
+    },
+    { once: true }
+  );
+
+  // Also fade out the link and setting.
+  fadeOutLinkSetting();
+}
+
+// ? Fades out links and settings.
+function fadeOutLinkSetting() {
+  let linkSetting = document.querySelector(".linksetting"); // Selects link and setting's div.
+
+  if (linkSetting) {
+    linkSetting.style.pointerEvents = "none"; // Disables interaction.
+    linkSetting.style.opacity = "0"; // Fades out.
+    linkSetting.style.transition = "opacity 0.5s ease-in-out"; // Applies smooth transition.
+
+    linkSetting.addEventListener(
+      "transitionend",
+      () => {
+        linkSetting.style.display = "none"; // Hides after transition.
+      },
+      { once: true } // Makes sure it functions only once.
+    );
+  }
+}
+
+// ? Changes background image upon clicking a mode button.
+function changeBackground() {
+  // * Finds image file location.
+  document.body.style.background =
+    "url('misc/assets/bgimg2.png') no-repeat center center fixed";
+  document.body.style.backgroundSize = "cover";
+}
+
+// * Find's element to activate function.
+document.getElementById("mode-button1").addEventListener("click", () => {
+  changeBackground(); // Sets clicking to activate function.
+});
 
 // ! Main game section.
+// ? Makes main game appear after mode buttons are clicked and disappeared.
 function showMG() {
   let wrapper = document.querySelector(".main-game");
   wrapper.style.opacity = "0";
@@ -247,7 +282,7 @@ function showMG() {
     wrapper.style.pointerEvents = "auto";
   }, 500);
 
-  resetGame(); // Ensure game resets and loads paragraph when shown
+  resetGame();
 }
 
 const paragraphs = {
@@ -382,6 +417,39 @@ inpField.addEventListener("input", () => {
   }, 2000); // Stops counting if user doesn't type for 2 sec
 });
 
+function resetGame() {
+  loadParagraph(); // Load a new paragraph
+  clearInterval(timer);
+
+  typingTime = 0;
+  charIndex = mistakes = 0;
+  typingActive = false;
+  inpField.value = "";
+  inpField.focus(); // Ensure input field is focused
+
+  // Reset displayed stats
+  document.getElementById("timeTag").innerText = "0";
+  document.getElementById("wpmTag").innerText = "0";
+  document.getElementById("mistakeTag").innerText = "0";
+
+  // Hide the results box
+  document.querySelector(".tpdetails").style.display = "none";
+
+  // Hide the credits container
+  document.getElementById("credits-container").style.display = "none";
+
+  // Hide individual credits
+  let crdtTexts = document.querySelectorAll("#credits-container p");
+  crdtTexts.forEach((el) => {
+    el.style.display = "none";
+    el.innerHTML = el.dataset.text || el.innerText; // Reset text
+  });
+}
+
+loadParagraph();
+inpField.addEventListener("input", initTyping);
+
+// ! Results form section.
 function showResults() {
   // Show the result section
   document.querySelector(".tpdetails").style.display = "block";
@@ -397,7 +465,6 @@ function showResults() {
     document.getElementById("crdt5"),
     document.getElementById("crdt6"),
     document.getElementById("crdt7"),
-    document.getElementById("crdt8"),
   ];
 
   let delayBetweenNames = 0; // Delay before next name starts (0.5s)
@@ -437,38 +504,7 @@ function showResults() {
   setTimeout(() => typeCredit(0), 500);
 }
 
-function resetGame() {
-  loadParagraph(); // Load a new paragraph
-  clearInterval(timer);
-
-  typingTime = 0;
-  charIndex = mistakes = 0;
-  typingActive = false;
-  inpField.value = "";
-  inpField.focus(); // Ensure input field is focused
-
-  // Reset displayed stats
-  document.getElementById("timeTag").innerText = "0";
-  document.getElementById("wpmTag").innerText = "0";
-  document.getElementById("mistakeTag").innerText = "0";
-
-  // Hide the results box
-  document.querySelector(".tpdetails").style.display = "none";
-
-  // Hide the credits container
-  document.getElementById("credits-container").style.display = "none";
-
-  // Hide individual credits
-  let crdtTexts = document.querySelectorAll("#credits-container p");
-  crdtTexts.forEach((el) => {
-    el.style.display = "none";
-    el.innerHTML = el.dataset.text || el.innerText; // Reset text
-  });
-}
-
-loadParagraph();
-inpField.addEventListener("input", initTyping);
-
+// ! Paragraph length buttons section.
 function showPL1() {
   let button = document.getElementById("PL-button1");
 
