@@ -14,11 +14,11 @@ function fadeOutSB() {
   let title = titleDiv.querySelector("h1"); // Selects h1 element from title.
 
   // * Gives main title vanish animation.
-  //* Uses CSS properties in JavaScript.
+  // * Uses CSS properties in JavaScript.
   titleDiv.style.opacity = "0"; // Starts off invisible.
   titleDiv.style.transform = "translate(-50%, -50%) scale(0.9)"; // Starts small (90% size).
 
-  //* Sets timer to activate functions.
+  // * Sets timer to activate functions.
   setTimeout(() => {
     title.textContent = "Select Mode"; // Changes title to Select mode after start button clicked.
 
@@ -227,12 +227,12 @@ function fadeOutMB(buttonId) {
     { once: true }
   );
 
-  // Also fade out the link and setting.
-  fadeOutLinkSetting();
+  /* Also fade out the link and setting.
+  fadeOutLS(); */
 }
 
-// ? Fades out links and settings.
-function fadeOutLinkSetting() {
+/* Fades out links and settings.
+function fadeOutLS() {
   let linkSetting = document.querySelector(".linksetting"); // Selects link and setting's div.
 
   if (linkSetting) {
@@ -248,7 +248,7 @@ function fadeOutLinkSetting() {
       { once: true } // Makes sure it functions only once.
     );
   }
-}
+} */
 
 // ? Changes background image upon clicking a mode button.
 function changeBackground() {
@@ -256,6 +256,7 @@ function changeBackground() {
   document.body.style.background =
     "url('misc/assets/bgimg2.png') no-repeat center center fixed";
   document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundColor = "#212121";
 }
 
 // * Find's element to activate function.
@@ -267,6 +268,7 @@ document.getElementById("mode-button1").addEventListener("click", () => {
 // ? Makes main game appear after mode buttons are clicked and disappeared.
 function showMG() {
   let wrapper = document.querySelector(".main-game");
+
   wrapper.style.opacity = "0";
   wrapper.style.display = "block";
   wrapper.style.pointerEvents = "none";
@@ -274,15 +276,13 @@ function showMG() {
   setTimeout(() => {
     wrapper.style.transition = "opacity 0.8s ease-in-out";
     wrapper.style.opacity = "1";
-
-    console.log("Typing game appeared!");
   }, 500);
 
   setTimeout(() => {
     wrapper.style.pointerEvents = "auto";
   }, 500);
 
-  resetGame();
+  resetGame(); // Makes sure the game starts on typing.
 }
 
 const paragraphs = {
@@ -319,12 +319,12 @@ const paragraphs = {
   ],
 };
 
-let currentLength = 20; // Default to 10 words
+let currentLength = 20; // Defaults to 20 words.
 
 function setParagraphLength(length) {
   currentLength = length;
   loadParagraph();
-  resetGame(); // Reset the game when paragraph length changes
+  resetGame(); // Resets the game when paragraph length changes.
 }
 
 const typingText = document.querySelector(".tpbox p");
@@ -334,77 +334,79 @@ const timeTag = document.querySelector(".timer span b");
 const mistakeTag = document.querySelector(".mistakes span");
 const wpmTag = document.querySelector(".wpm span");
 
-let typingTime = 0; // Tracks active typing time
-let typingActive = false; // Flag to check if typing is happening
+let typingTime = 0; // Tracks active typing time.
+let typingActive = false; // Flag to check if typing is happening.
 let timer;
-let charIndex = (mistakes = isTyping = 0);
+let charIndex = (mistakes = isTyping = 0); // Checks mistakes.
 
 function loadParagraph() {
-  const paragraphList = paragraphs[currentLength];
-  const randomIndex = Math.floor(Math.random() * paragraphList.length);
-  const selectedParagraph = paragraphList[randomIndex];
+  const paragraphList = paragraphs[currentLength]; // Loads given paragraphs based on lengths.
+  const randomIndex = Math.floor(Math.random() * paragraphList.length); // Randomizes paragraph on clicking.
+  const selectedParagraph = paragraphList[randomIndex]; // Selects current paragraph upon typing.
 
-  typingText.innerHTML = "";
+  typingText.innerHTML = ""; // Ensures it types nothing.
   selectedParagraph.split("").forEach((char) => {
-    let span = `<span>${char}</span>`;
+    let span = `<span>${char}</span>`; // Wraps each character in a <span>.
     typingText.innerHTML += span;
-  });
+  }); // Typing adds span.
 
-  typingText.querySelectorAll("span")[0].classList.add("active");
+  typingText.querySelectorAll("span")[0].classList.add("active"); // Finds first span element.
 
-  // Reset input field and focus it
+  // Reset input field and make it empty.
   inpField.value = "";
-  inpField.focus(); // Ensure it’s focused
+  inpField.focus(); // Ensure it’s focused and stays even without text.
 }
 
 function startTimer() {
   if (!typingActive) {
-    typingActive = true;
+    typingActive = true; // Checks if you're typing.
     timer = setInterval(() => {
-      typingTime++; // Increase only when typing is active
+      typingTime++; // Increases time spent when typing is active.
       document.getElementById("timeTag").innerText = typingTime;
-    }, 1000);
+    }, 1000); // Times the timer by per second when active typing.
   }
 }
 
 function initTyping() {
-  let characters = typingText.querySelectorAll("span");
-  let typedChar = inpField.value.split("")[charIndex];
+  let characters = typingText.querySelectorAll("span"); // Selects span as typing text.
+  let typedChar = inpField.value.split("")[charIndex]; // Gets the current typing letter.
 
   if (charIndex < characters.length) {
-    startTimer(); // Start the timer when the user begins typing
+    startTimer(); // Start the timer when the user begins typing.
 
+    // * Handles backspacing and character validation.
     if (typedChar == null) {
       if (charIndex > 0) {
-        charIndex--;
+        charIndex--; // Sets backspace to no char typed and removes last typed char.
         if (characters[charIndex].classList.contains("incorrect")) {
-          mistakes--;
+          mistakes--; // Removes mistake count if removing an incorrect character.
         }
-        characters[charIndex].classList.remove("correct", "incorrect");
+        characters[charIndex].classList.remove("correct", "incorrect"); // Resets character styling.
       }
     } else {
+      // * Indicates what character user typed.
       if (characters[charIndex].innerText == typedChar) {
-        characters[charIndex].classList.add("correct");
+        characters[charIndex].classList.add("correct"); // Lists as correct.
       } else {
-        mistakes++;
-        characters[charIndex].classList.add("incorrect");
+        mistakes++; // Counts mistakes.
+        characters[charIndex].classList.add("incorrect"); // Lists as incorrect.
       }
-      charIndex++;
+      charIndex++; // Moves to the next character upon typing.
     }
 
     characters.forEach((span) => span.classList.remove("active"));
     if (charIndex < characters.length) {
       characters[charIndex].classList.add("active");
     } else {
-      clearInterval(timer); // Stop counting time when done
+      clearInterval(timer); // Stops counting time when done.
       typingActive = false;
-      showResults();
+      showResults(); // Activates show result function.
     }
 
     document.getElementById("wpmTag").innerText =
       Math.round(((charIndex - mistakes) / 5 / typingTime) * 60) || 0;
     document.getElementById("mistakeTag").innerText = mistakes;
-  }
+  } // Counts the result.
 }
 
 let typingTimeout;
@@ -414,118 +416,61 @@ inpField.addEventListener("input", () => {
   typingTimeout = setTimeout(() => {
     clearInterval(timer);
     typingActive = false;
-  }, 2000); // Stops counting if user doesn't type for 2 sec
+  }, 2000); // Stops counting if user doesn't type for 2 sec.
 });
 
 function resetGame() {
-  loadParagraph(); // Load a new paragraph
-  clearInterval(timer);
+  loadParagraph(); // Loads a new paragraph.
+  clearInterval(timer); // Stops timer.
 
+  // * Resets everything on default.
   typingTime = 0;
   charIndex = mistakes = 0;
   typingActive = false;
   inpField.value = "";
-  inpField.focus(); // Ensure input field is focused
+  inpField.focus(); // Ensure input field is focused. (Current character.)
 
-  // Reset displayed stats
+  //* Reset displayed stats. (From prev record)
   document.getElementById("timeTag").innerText = "0";
   document.getElementById("wpmTag").innerText = "0";
   document.getElementById("mistakeTag").innerText = "0";
 
-  // Hide the results box
-  document.querySelector(".tpdetails").style.display = "none";
+  document.querySelector(".tpdetails").style.display = "none"; // Hides the results box.
 
-  // Hide the credits container
-  document.getElementById("credits-container").style.display = "none";
+  document.getElementById("credits-container").style.display = "none"; // Hides the credits container.
 
-  // Hide individual credits
-  let crdtTexts = document.querySelectorAll("#credits-container p");
+  let crdtTexts = document.querySelectorAll("#credits-container p"); // Hides individual's credits.
   crdtTexts.forEach((el) => {
     el.style.display = "none";
-    el.innerHTML = el.dataset.text || el.innerText; // Reset text
+    el.innerHTML = el.dataset.text || el.innerText; // Resets text animation.
   });
 }
 
 loadParagraph();
-inpField.addEventListener("input", initTyping);
-
-// ! Results form section.
-function showResults() {
-  // Show the result section
-  document.querySelector(".tpdetails").style.display = "block";
-  document.querySelector(".tpdetails .wpm span").textContent = wpmTag.innerText;
-  document.querySelector(".tpdetails .mistakes span").textContent =
-    mistakeTag.innerText;
-
-  let crdtTexts = [
-    document.getElementById("crdt1"),
-    document.getElementById("crdt2"),
-    document.getElementById("crdt3"),
-    document.getElementById("crdt4"),
-    document.getElementById("crdt5"),
-    document.getElementById("crdt6"),
-    document.getElementById("crdt7"),
-  ];
-
-  let delayBetweenNames = 0; // Delay before next name starts (0.5s)
-  let typingSpeed = 50; // Speed per letter in milliseconds
-
-  function typeCredit(index) {
-    if (index < crdtTexts.length) {
-      let element = crdtTexts[index];
-      if (element) {
-        element.style.display = "block"; // Make element visible
-        let text = element.textContent.trim(); // Get the original text
-        element.textContent = ""; // Clear the text for typing effect
-
-        let i = 0;
-        function typeChar() {
-          if (i <= text.length) {
-            element.innerHTML =
-              text.substring(0, i) + `<span class="cursor">|</span>`; // Add cursor
-            i++;
-            setTimeout(typeChar, typingSpeed); // Type next character
-          } else {
-            element.innerHTML = text; // Remove cursor after typing
-            setTimeout(() => typeCredit(index + 1), delayBetweenNames); // Next name
-          }
-        }
-
-        typeChar(); // Start typing animation
-      }
-    }
-  }
-
-  // Ensure credits container is visible before animation starts
-  let creditsContainer = document.getElementById("credits-container");
-  if (creditsContainer) creditsContainer.style.display = "block";
-
-  // Start typing animation 1 second after results appear
-  setTimeout(() => typeCredit(0), 500);
-}
+inpField.addEventListener("input", initTyping); // loads new paragraph.
 
 // ! Paragraph length buttons section.
 function showPL1() {
   let button = document.getElementById("PL-button1");
 
   // * Applies transition styles.
-  button.style.display = "inline-block"; // Ensures it's visible.
-  button.style.transform = "translate(-50%, -50%) scale(0.86)"; // Starts small.
+  button.style.display = "inline-block";
+  button.style.transform = "translate(-50%, -50%) scale(0.86)";
   button.style.transition =
     "transform 1s ease-in-out, opacity 0.8s ease-in-out";
-  button.style.opacity = "0"; // Starts invisible.
-  button.style.pointerEvents = "none"; // Disables click and hover for a while.
+  button.style.opacity = "0";
+  button.style.pointerEvents = "none";
 
   // * Delays and timings.
   setTimeout(() => {
     button.style.opacity = "1";
-  }, 600); // Slowly makes button appear.
+  }, 600);
   setTimeout(() => {
     button.style.transform = "translate(-50%, -50%) scale(.95)";
-  }, 800); // Slowly scale back to normal.
+  }, 800);
   setTimeout(() => {
     button.style.pointerEvents = "auto";
-  }, 2000); // Turns interaction on after delay. (Makes it clickable.)
+  }, 2000);
   setTimeout(() => {
     button.style.transition = ""; // Removes transition.
     button.style.transform = ""; // Resets transform.
@@ -544,7 +489,7 @@ function showPL2() {
     button.style.opacity = "1";
   }, 1100);
   setTimeout(() => {
-    button.style.transform = "translate(-50%, -50%) scale(.95)"; // Scale back to normal
+    button.style.transform = "translate(-50%, -50%) scale(.95)";
   }, 800);
   setTimeout(() => {
     button.style.pointerEvents = "auto";
@@ -567,7 +512,7 @@ function showPL3() {
     button.style.opacity = "1";
   }, 1500);
   setTimeout(() => {
-    button.style.transform = "translate(-50%, -50%) scale(.95)"; // Scale back to normal
+    button.style.transform = "translate(-50%, -50%) scale(.95)";
   }, 1000);
   setTimeout(() => {
     button.style.pointerEvents = "auto";
@@ -576,4 +521,62 @@ function showPL3() {
     button.style.transition = "";
     button.style.transform = "";
   }, 2000);
+}
+
+// ! Results form section.
+function showResults() {
+  // * Shows the result form.
+  document.querySelector(".tpdetails").style.display = "block";
+  document.querySelector(".tpdetails .wpm span").textContent = wpmTag.innerText;
+  document.querySelector(".tpdetails .mistakes span").textContent =
+    mistakeTag.innerText;
+
+  // * Shows the credits.
+  let crdtTexts = [
+    document.getElementById("crdt1"),
+    document.getElementById("crdt2"),
+    document.getElementById("crdt3"),
+    document.getElementById("crdt4"),
+    document.getElementById("crdt5"),
+    document.getElementById("crdt6"),
+    document.getElementById("crdt7"),
+    document.getElementById("crdt8"),
+  ];
+
+  let delayBetweenNames = 0; // Delay before next name starts (0.5s).
+  let typingSpeed = 30; // Speed per letter in milliseconds.
+
+  // ? Sets animation on function upon activation for credits.
+  function typeCredit(index) {
+    if (index < crdtTexts.length) {
+      let element = crdtTexts[index];
+      if (element) {
+        element.style.display = "block"; // Makes element visible.
+        let text = element.textContent.trim(); // Gets the original text.
+        element.textContent = ""; // Clears the text for typing effect.
+
+        let i = 0;
+        function typeChar() {
+          if (i <= text.length) {
+            element.innerHTML =
+              text.substring(0, i) + `<span class="cursor">|</span>`; // Adds cursor.
+            i++;
+            setTimeout(typeChar, typingSpeed); // Types next character.
+          } else {
+            element.innerHTML = text; // Removes cursor after typing.
+            setTimeout(() => typeCredit(index + 1), delayBetweenNames); // Next name delays.
+          }
+        }
+
+        typeChar(); // Start typing animation.
+      }
+    }
+  }
+
+  // Ensure credits container is visible before animation starts.
+  let creditsContainer = document.getElementById("credits-container");
+  if (creditsContainer) creditsContainer.style.display = "block";
+
+  // Start typing animation 1 second after results appear.
+  setTimeout(() => typeCredit(0), 500);
 }

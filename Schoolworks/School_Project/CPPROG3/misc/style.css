@@ -16,6 +16,7 @@ body {
   background-size: cover;
   transition: background-image 1s ease-in-out, opacity 1s ease-in-out;
   touch-action: pan-y;
+  background-color: #212121;
 }
 @keyframes bgFade {
   0% {
@@ -76,7 +77,7 @@ body {
 #offsound,
 #settings {
   position: absolute;
-  display: inline-block;
+  display: block;
   transform: translate(-50%, -50%);
   width: 65px;
   transition: opacity 0.5s ease-out;
@@ -242,8 +243,8 @@ body {
 /* ! Main game section. */
 .tpbox {
   color: #fbc02d;
-  position: absolute; /* If not already set */
-  top: 43%; /* Reduce this value to move it up */
+  position: absolute;
+  top: 43%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -317,13 +318,13 @@ body {
   }
 }
 .tpdetails {
-  position: absolute; /* Make it float above other content */
-  top: 35%; /* Position it in the vertical center */
-  left: 50%; /* Position it in the horizontal center */
-  transform: translate(-50%, -50%); /* Offset it to truly center it */
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 50px 100px;
   border: 4px solid #000000;
-  background: #212121; /* Optional: adds some background color */
+  background: #212121;
   border-radius: 80px;
   box-shadow: 0px 0px 15px 3px rgb(0, 0, 0);
 }
@@ -354,7 +355,7 @@ body {
 }
 #PL-button1 {
   top: 75%;
-  left: 37%;
+  left: 35%;
 }
 #PL-button2 {
   top: 75%;
@@ -362,7 +363,7 @@ body {
 }
 #PL-button3 {
   top: 75%;
-  left: 63%;
+  left: 65%;
 }
 #PL-button1::before,
 #PL-button2::before,
@@ -474,28 +475,31 @@ li span b {
 #crdt4,
 #crdt5,
 #crdt6,
-#crdt7 {
+#crdt7,
+#crdt8 {
   font-size: 40px;
-  display: none; /* Initially hidden */
+  display: none;
   position: absolute;
   color: #ffffff;
   border: 4px solid #000000;
-  background: #212121; /* Optional: adds some background color */
+  background: #212121;
   border-radius: 8px;
   box-shadow: 0px 0px 15px 3px rgb(0, 0, 0);
   padding: 14px;
   transform: translate(-50%, -50%);
+  text-align: center;
 }
 #crdt1 {
   font-size: 40px;
-  display: none; /* Initially hidden */
+  display: none;
   position: absolute;
   color: #ffffff;
   border: 4px solid #000000;
-  background: #212121; /* Optional: adds some background color */
+  background: #212121;
   border-radius: 8px;
   padding: 15px;
   transform: translate(-50%, -50%);
+  text-align: center;
 }
 #crdt1 {
   top: 12%;
@@ -505,31 +509,31 @@ li span b {
 }
 #crdt2 {
   top: 25%;
-  left: 20%;
+  left: 15%;
 }
 #crdt3 {
   top: 45%;
-  left: 20%;
+  left: 15%;
 }
 #crdt4 {
   top: 65%;
-  left: 20%;
+  left: 15%;
 }
 #crdt5 {
   top: 25%;
-  left: 80%;
+  left: 85%;
 }
 #crdt6 {
   top: 45%;
-  left: 80%;
+  left: 85%;
 }
 #crdt7 {
   top: 65%;
-  left: 80%;
+  left: 85%;
 }
 #crdt8 {
-  top: 75%;
-  left: 73%;
+  top: 93%;
+  left: 50%;
 }
 .cursor {
   display: inline-block;
